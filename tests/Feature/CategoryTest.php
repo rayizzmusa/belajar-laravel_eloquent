@@ -38,7 +38,7 @@ class CategoryTest extends TestCase
 
         assertTrue($result);
 
-        $total = Category::count();
+        $total = Category::query()->count();
         self::assertEquals(10, $total);
     }
 

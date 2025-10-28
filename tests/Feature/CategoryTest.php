@@ -21,4 +21,23 @@ class CategoryTest extends TestCase
 
         assertTrue($result);
     }
+
+    public function testInsertManyCategories()
+    {
+        $categories = [];
+        for ($i = 0; $i < 10; $i++) {
+            $categories[] = [
+                "id" => "ID-$i",
+                "name" => "Name $i"
+            ];
+        }
+
+        // $result = Category::query()->insert($categories); bisa gini
+        $result = Category::insert($categories);
+
+        assertTrue($result);
+
+        $total = Category::count();
+        self::assertEquals(10, $total);
+    }
 }

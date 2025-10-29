@@ -79,7 +79,9 @@ class CategoryTest extends TestCase
         $categories = Category::query()->whereNull("description")->get(); //ini select
         self::assertCount(10, $categories);
         $categories->each(function (Category $category) {
-            self::assertNull($category->description);
+            self::assertNull($category->description); //collection disini bukan array, tapi object modelnya, jadi bisa dilakukan operasi lainnya
+            $category->description = "updated";
+            $category->save();
         });
     }
 }

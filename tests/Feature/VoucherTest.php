@@ -2,19 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Models\Voucher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class VoucherTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    public function testCreayeTableVoucher()
     {
-        $response = $this->get('/');
+        $voucher = new Voucher();
+        $voucher->name = "Sample Vouceher";
+        $voucher->voucher_code = "sample-voucher-001";
+        $voucher->save();
 
-        $response->assertStatus(200);
+        self::assertNotNull($voucher->id);
     }
 }

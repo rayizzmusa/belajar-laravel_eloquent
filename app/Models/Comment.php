@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+    protected $table = "comments";
+    protected $primaryKey = "id";
+    protected $keyType = "int";
+    public $incrementing = true;
+    public $timestamps = true; //defaultnya true
 }

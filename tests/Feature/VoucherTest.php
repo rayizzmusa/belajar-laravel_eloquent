@@ -18,4 +18,14 @@ class VoucherTest extends TestCase
 
         self::assertNotNull($voucher->id);
     }
+
+    public function testCreateVoucherUuid()
+    {
+        $voucher = new Voucher();
+        $voucher->name = "Sample Vouceher UUID";
+        $voucher->save();
+
+        self::assertNotNull($voucher->id);
+        self::assertNotNull($voucher->voucher_code);
+    }
 }

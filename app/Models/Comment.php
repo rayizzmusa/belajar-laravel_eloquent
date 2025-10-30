@@ -13,6 +13,7 @@ class Comment extends Model
     public $incrementing = true;
     public $timestamps = true; //defaultnya true
 
+    //default value management
     protected $attributes = [
         'comment' => 'sample comment default',
         'title' => 'sample title default',

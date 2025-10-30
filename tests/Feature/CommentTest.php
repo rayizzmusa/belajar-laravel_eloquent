@@ -18,4 +18,16 @@ class CommentTest extends TestCase
 
         self::assertNotNull($comment->id);
     }
+
+    public function testCreateCommentWithDefaultValues()
+    {
+        $comment = new \App\Models\Comment();
+        $comment->email = "rayh@exc.com";
+        //tidak mengisi title & comment, sehingga akan menggunakan default value dari model
+        $comment->save();
+
+        self::assertNotNull($comment->id);
+        self::assertEquals("sample title default", $comment->title);
+        self::assertEquals("sample comment default", $comment->comment);
+    }
 }

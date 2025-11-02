@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -59,6 +60,22 @@ class CommentTest extends TestCase
         ];
         // $category = Category::query()->create($request); atau
         $category = Category::create($request);
+
+        self::assertNotNull($category->id);
+    }
+
+    public function testUpdateMethod()
+    {
+        $this->seed(CategorySeeder::class);
+
+        $request = [
+            "name" => "Food Updated",
+            "description" => "Food Category Updated"
+        ];
+
+        $category = Category::find("FOOD");
+        $category->fill($request);
+        $category->save();
 
         self::assertNotNull($category->id);
     }

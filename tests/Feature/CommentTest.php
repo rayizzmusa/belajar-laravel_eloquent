@@ -51,7 +51,7 @@ class CommentTest extends TestCase
         // maka ubah fillable di model Category.php
     }
 
-    public function testCreateMethod()
+    public function testCreateMethodWithQueryBuilder()
     {
         $request = [
             "id" => "FASHION",

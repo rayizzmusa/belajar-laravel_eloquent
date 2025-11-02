@@ -35,7 +35,7 @@ class CommentTest extends TestCase
     }
 
     //pembasahan fillable
-    public function testCreate()
+    public function testCreateFillabe()
     {
         $request = [
             "id" => "FOOD",
@@ -48,5 +48,18 @@ class CommentTest extends TestCase
         assertNotNull($category->id);
         // jika ada eror mass assignment exception
         // maka ubah fillable di model Category.php
+    }
+
+    public function testCreateMethod()
+    {
+        $request = [
+            "id" => "FASHION",
+            "name" => "Fashion",
+            "description" => "Category for fashion stuff"
+        ];
+        // $category = Category::query()->create($request); atau
+        $category = Category::create($request);
+
+        self::assertNotNull($category->id);
     }
 }

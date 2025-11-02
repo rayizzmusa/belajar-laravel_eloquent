@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertNotNull;
 
 class CommentTest extends TestCase
 {
@@ -29,5 +32,21 @@ class CommentTest extends TestCase
         self::assertNotNull($comment->id);
         self::assertEquals("sample title default", $comment->title);
         self::assertEquals("sample comment default", $comment->comment);
+    }
+
+    //pembasahan fillable
+    public function testCreate()
+    {
+        $request = [
+            "id" => "FOOD",
+            "name" => "Food",
+            "description" => "Category for food stuff"
+        ];
+        $category = new Category($request);
+        $category->save();
+
+        assertNotNull($category->id);
+        // jika ada eror mass assignment exception
+        // maka ubah fillable di model Category.php
     }
 }

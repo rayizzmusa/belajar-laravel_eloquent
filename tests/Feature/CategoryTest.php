@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class CategoryTest extends TestCase
@@ -135,5 +136,18 @@ class CategoryTest extends TestCase
 
         $total = Category::query()->count();
         self::assertEquals(0, $total);
+    }
+
+    public function testGlobalScope()
+    {
+        $category = new Category();
+        $category->id = "FOOD";
+        $category->name = "Food";
+        $category->description = "This Category GS";
+        $category->is_active = false;
+        $category->save();
+
+        $categories = Category::find("FOOD");
+        self::assertNull($categories);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder;
+use illuminate\Database\Eloquent\Builder;
 
 class Voucher extends Model
 {
@@ -24,12 +24,12 @@ class Voucher extends Model
     }
 
     //implementasi local scope
-    public function scopeActive(Builder $builder)
+    public function scopeActive(Builder $builder): void
     {
         $builder->where('is_active', true);
     }
 
-    public function scopeNonActive(Builder $builder)
+    public function scopeNonActive(Builder $builder): void
     {
         $builder->where('is_active', false);
     }

@@ -54,7 +54,7 @@ class VoucherTest extends TestCase
         $total = Voucher::query()->active()->count();
         self::assertEquals(1, $total);
 
-        // $total = Voucher::query()->nonActive()->count();
-        // self::assertEquals(0, $total);
+        $total = Voucher::query()->nonActive()->count();
+        self::assertEquals(0, $total);
     }
 }

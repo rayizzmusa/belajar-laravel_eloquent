@@ -39,5 +39,8 @@ class VoucherTest extends TestCase
 
         $voucher = Voucher::where("voucher_code", "sample-voucher-001")->first();
         self::assertNull($voucher);
+
+        $voucher = Voucher::withTrashed()->where("voucher_code", "sample-voucher-001")->first();
+        self::assertNotNull($voucher);
     }
 }

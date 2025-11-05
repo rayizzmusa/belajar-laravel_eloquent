@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Scopes\IsActiveScope;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -149,5 +150,8 @@ class CategoryTest extends TestCase
 
         $categories = Category::find("FOOD");
         self::assertNull($categories);
+
+        $category = Category::withoutGlobalScope(IsActiveScope::class)->find('FOOD');
+        self::assertNotNull($category);
     }
 }

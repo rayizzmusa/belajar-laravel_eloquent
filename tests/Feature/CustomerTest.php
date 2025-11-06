@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use App\Models\Wallet;
 use Database\Seeders\CustomerSeeder;
 use Database\Seeders\WalletSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,5 +24,15 @@ class CustomerTest extends TestCase
         self::assertNotNull($wallet);
 
         self::assertEquals(1000000, $wallet->amount);
+    }
+
+    public function testOneToOne2()
+    {
+        $this->seed([CustomerSeeder::class, WalletSeeder::class]);
+
+        $wallet = Wallet::where("customer_id", "SYIFA")->first();
+
+        $customer = $wallet->customer;
+        self::assertEquals("ray@exc.com", $customer->email);
     }
 }

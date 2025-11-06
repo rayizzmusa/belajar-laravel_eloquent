@@ -26,6 +26,7 @@ class CustomerTest extends TestCase
         self::assertEquals(1000000, $wallet->amount);
     }
 
+    //kebalikannya
     public function testOneToOne2()
     {
         $this->seed([CustomerSeeder::class, WalletSeeder::class]);

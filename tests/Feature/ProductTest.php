@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Product;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\ProductSeeder;
@@ -20,5 +21,23 @@ class ProductTest extends TestCase
         self::assertNotNull($product);
         $category = $product->category;
         self::assertNotNull($category);
+    }
+
+    public function testOneToManyQuery()
+    {
+        $category = new Category();
+        $category->id = 'DRINK';
+        $category->name = "Aqua";
+        $category->description = "Desc Aqua";
+        $category->is_active = true;
+        $category->save();
+        self::assertNotNull($category);
+
+        $product = new Product();
+        $product->id = 1;
+        $product->name = "Aqua Galon";
+        $product->description = "Galon 10 liter";
+        $category->products()->save($product);
+        self::assertNotNull($product);
     }
 }

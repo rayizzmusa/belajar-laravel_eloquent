@@ -40,4 +40,16 @@ class ProductTest extends TestCase
         $category->products()->save($product);
         self::assertNotNull($product);
     }
+
+    public function testRelationshipQuery()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+
+        $category = Category::find("FOOD");
+        $products = $category->products;
+        $outOfStockProducts = $category->products()->where("stock", "<=", 0)->get();
+
+        self::assertNotNull($products);
+        self::assertNotNull($outOfStockProducts);
+    }
 }

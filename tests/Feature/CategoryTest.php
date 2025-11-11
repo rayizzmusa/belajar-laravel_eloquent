@@ -179,4 +179,19 @@ class CategoryTest extends TestCase
         $category = $product->category;
         self::assertNotNull($category);
     }
+
+    public function testHasOneOfMany()
+    {
+        $this->seed(CategorySeeder::class);
+        $this->seed(ProductSeeder::class);
+
+        $category = Category::query()->find('FOOD');
+
+        $cheapProduct = $category->cheapestProduct;
+        self::assertNotNull($cheapProduct);
+        self::assertEquals("1", $cheapProduct->id);
+
+        $mostExpensive = $category->mostExpensiveProduct;
+        self::assertEquals("2", $mostExpensive->id);
+    }
 }

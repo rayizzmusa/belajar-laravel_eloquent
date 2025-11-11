@@ -31,4 +31,14 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, "category_id", "id");
     }
+
+    public function cheapestProduct(): HasOne
+    {
+        return $this->hasOne(Product::class, 'category_id', 'id')->oldest('price');
+    }
+
+    public function mostExpensiveProduct(): HasOne
+    {
+        return $this->hasOne(Product::class, 'category_id', 'id')->latest('price');
+    }
 }

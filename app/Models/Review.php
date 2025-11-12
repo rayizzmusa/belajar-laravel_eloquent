@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Review extends Model
 {
     protected $table = "reviews";
-    protected $keyType = 'int';
+    protected $keyType = 'bigint';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = false;

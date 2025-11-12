@@ -201,7 +201,7 @@ class CategoryTest extends TestCase
     {
         $this->seed([CategorySeeder::class, ProductSeeder::class, CustomerSeeder::class, ReviewSeeder::class]);
 
-        $category = Category::query()->find("EKO");
+        $category = Category::query()->find("FOOD");
 
         $reviews = $category->reviews;
         self::assertNotNull($reviews);

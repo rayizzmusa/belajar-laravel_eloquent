@@ -81,4 +81,17 @@ class CustomerTest extends TestCase
         self::assertCount(1, $products);
         self::assertEquals("1", $products[0]->id);
     }
+
+    public function testManyToManyDetach()
+    {
+        $this->testManyToMany();
+
+        $customer = Customer::query()->find("SYIFA");
+        $customer->likeProducts()->detach("1");
+
+        $products = $customer->likeProducts;
+
+        self::assertNotNull($products);
+        self::assertCount(0, $products);
+    }
 }

@@ -94,4 +94,17 @@ class CustomerTest extends TestCase
         self::assertNotNull($products);
         self::assertCount(0, $products);
     }
+
+    public function testPivotAttribute()
+    {
+        $this->testManyToMany();
+
+        $customer = Customer::query()->find("SYIFA");
+        $products = $customer->likeProducts;
+
+        foreach ($products as $product) {
+            $pivot = $product->pivot;
+            self::assertNotNull($pivot);
+        }
+    }
 }

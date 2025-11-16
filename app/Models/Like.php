@@ -14,6 +14,11 @@ class Like extends Pivot
     protected $relatedKey = "product_id";
     public $timestamps = false;
 
+    public function usesTimestamps(): bool // untuk mencegah updated_at karena false timestamps tidak pengaruh/ atau bisa ditambahkan saja kolom updated_at
+    {
+        return false;
+    }
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class, "customer_id", "id");

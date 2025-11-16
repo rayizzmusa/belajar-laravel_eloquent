@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Dom\Comment;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Voucher extends Model
 {
@@ -32,5 +34,10 @@ class Voucher extends Model
     public function scopeNonActive(Builder $builder): void
     {
         $builder->where('is_active', false);
+    }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, "commentable");
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Wallet;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\CustomerSeeder;
+use Database\Seeders\ImageSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\VirtualAccountSeeder;
 use Database\Seeders\WalletSeeder;
@@ -135,5 +136,16 @@ class CustomerTest extends TestCase
             self::assertNotNull($pivot->customer);
             self::assertNotNull($pivot->product);
         }
+    }
+
+    public function testOneToOnePolymorphic()
+    {
+        $this->seed([CustomerSeeder::class, ImageSeeder::class]);
+
+        $customer = Customer::find("SYIFA");
+        self::assertNotNull($customer);
+
+        $image = $customer->image;
+        self::assertEquals("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.qiscus.com%2Fid%2Fblog%2Fperbedaan-customer-care-dan-customer-service%2F&psig=AOvVaw1BTahbTr9YKHzmYf0xViOy&ust=1763362551107000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLDcyMWL9pADFQAAAAAdAAAAABAE", $image->url);
     }
 }

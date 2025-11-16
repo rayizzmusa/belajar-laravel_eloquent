@@ -23,7 +23,7 @@ class ImageSeeder extends Seeder
 
         $image2 = new Image();
         $image2->url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smartsurvey.co.uk%2Fblog%2Fproduct-concept-what-is-it-how-to-use-it&psig=AOvVaw3eHRWLzmJy2R2hJ79HoaT6&ust=1763362692286000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCIDA3oiM9pADFQAAAAAdAAAAABAE");
-        $image2->imageable_id = "FOOD";
+        $image2->imageable_id = "1";
         $image2->imageable_type = Product::class;
         $image2->save();
     }

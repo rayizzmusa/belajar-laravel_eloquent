@@ -107,4 +107,17 @@ class CustomerTest extends TestCase
             self::assertNotNull($pivot);
         }
     }
+
+    public function testWherePivot()
+    {
+        $this->testManyToMany();
+
+        $customer = Customer::query()->find("SYIFA");
+        $products = $customer->likeProductsLastWeek;
+
+        foreach ($products as $product) {
+            $pivot = $product->pivot;
+            self::assertNotNull($pivot);
+        }
+    }
 }

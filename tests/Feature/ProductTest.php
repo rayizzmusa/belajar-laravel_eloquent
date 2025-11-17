@@ -11,6 +11,7 @@ use Database\Seeders\ProductSeeder;
 use Database\Seeders\VoucherSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -78,5 +79,21 @@ class ProductTest extends TestCase
             self::assertEquals(Product::class, $comment->commentable_type);
             self::assertEquals($product->id, $comment->commentable_id);
         }
+    }
+
+    public function testHasOneOfMany()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class, VoucherSeeder::class, CommentSeeder::class]);
+
+        $product = Product::query()->first();
+        $latest = $product->latestComment;
+        self::assertNotNull($latest);
+
+        $oldest = $product->oldestComment;
+        self::assertNotNull($oldest);
+
+        // $product->each(function ($item) {
+        Log::info(json_encode($oldest));
+        // });
     }
 }

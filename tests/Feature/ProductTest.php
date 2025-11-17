@@ -8,6 +8,7 @@ use Database\Seeders\CategorySeeder;
 use Database\Seeders\CommentSeeder;
 use Database\Seeders\ImageSeeder;
 use Database\Seeders\ProductSeeder;
+use Database\Seeders\TagSeeder;
 use Database\Seeders\VoucherSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -81,7 +82,7 @@ class ProductTest extends TestCase
         }
     }
 
-    public function testHasOneOfMany()
+    public function testHasOneOfManyPoly()
     {
         $this->seed([CategorySeeder::class, ProductSeeder::class, VoucherSeeder::class, CommentSeeder::class]);
 
@@ -95,5 +96,14 @@ class ProductTest extends TestCase
         // $product->each(function ($item) {
         Log::info(json_encode($oldest));
         // });
+    }
+
+    public function testManyToManyPoly()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class, VoucherSeeder::class, TagSeeder::class]);
+
+        $product = Product::find("1");
+        $tags = $product->tags;
+        self::assertCount(1, $tags);
     }
 }

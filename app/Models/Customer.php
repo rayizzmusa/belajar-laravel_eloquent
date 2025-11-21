@@ -19,6 +19,8 @@ class Customer extends Model
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $with = ['wallet']; //eager load menggunakan model
+
     public function wallet(): HasOne
     {
         return $this->hasOne(Wallet::class, "customer_id", "id");

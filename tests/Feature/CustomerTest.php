@@ -148,4 +148,13 @@ class CustomerTest extends TestCase
         $image = $customer->image;
         self::assertEquals("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.qiscus.com%2Fid%2Fblog%2Fperbedaan-customer-care-dan-customer-service%2F&psig=AOvVaw1BTahbTr9YKHzmYf0xViOy&ust=1763362551107000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLDcyMWL9pADFQAAAAAdAAAAABAE", $image->url);
     }
+
+    public function testEager()
+    {
+        $this->seed([CustomerSeeder::class, WalletSeeder::class, ImageSeeder::class]);
+
+        // $customer = Customer::with(["wallet", "image"])->find("SYIFA"); //ini eager load menggunakan query builder atau biisa juga dengan $with yang ditambahkan di model customer
+        $customer = Customer::find("SYIFA");
+        self::assertNotNull($customer);
+    }
 }

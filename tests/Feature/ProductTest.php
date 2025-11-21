@@ -8,9 +8,11 @@ use Database\Seeders\CategorySeeder;
 use Database\Seeders\CommentSeeder;
 use Database\Seeders\ImageSeeder;
 use Database\Seeders\ProductSeeder;
+use Database\Seeders\TagSeeder;
 use Database\Seeders\VoucherSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -75,8 +77,33 @@ class ProductTest extends TestCase
         $comments = $product->comments;
         self::assertCount(1, $comments);
         foreach ($comments as $comment) {
-            self::assertEquals(Product::class, $comment->commentable_type);
+            self::assertEquals('product', $comment->commentable_type);
             self::assertEquals($product->id, $comment->commentable_id);
         }
+    }
+
+    public function testHasOneOfManyPoly()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class, VoucherSeeder::class, CommentSeeder::class]);
+
+        $product = Product::query()->first();
+        $latest = $product->latestComment;
+        self::assertNotNull($latest);
+
+        $oldest = $product->oldestComment;
+        self::assertNotNull($oldest);
+
+        // $product->each(function ($item) {
+        Log::info(json_encode($oldest));
+        // });
+    }
+
+    public function testManyToManyPoly()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class, VoucherSeeder::class, TagSeeder::class]);
+
+        $product = Product::find("1");
+        $tags = $product->tags;
+        self::assertCount(1, $tags);
     }
 }

@@ -106,4 +106,16 @@ class ProductTest extends TestCase
         $tags = $product->tags;
         self::assertCount(1, $tags);
     }
+
+    public function testEloquentCollection()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+
+        //ada 2 products
+        $products = Product::query()->get();
+
+        $query = $products->toQuery()->where("price", 300)->get(); //method toQuery ini adalah method WHERE IN 
+
+        self::assertEquals("2", $query[0]->id);
+    }
 }

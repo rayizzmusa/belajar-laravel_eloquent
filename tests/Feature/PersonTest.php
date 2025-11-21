@@ -12,7 +12,7 @@ class PersonTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function testAccessorMutator(): void
     {
         $person = new Person();
         $person->first_name = "Syifa";
@@ -25,6 +25,22 @@ class PersonTest extends TestCase
         $person->save();
 
         self::assertEquals("Rayhan", $person->first_name);
+        self::assertEquals("Muhammad", $person->last_name);
+    } //yang ini pasti eror karena model nya sudah dirubah
+
+    public function testAccessorMutatorSamaDenganKolom()
+    {
+        $person = new Person();
+        $person->first_name = "Syifa";
+        $person->last_name = "Aulia";
+        $person->save();
+
+        self::assertEquals("SYIFA Aulia", $person->full_name);
+
+        $person->full_name = "Rayhan Muhammad";
+        $person->save();
+
+        self::assertEquals("RAYHAN", $person->first_name);
         self::assertEquals("Muhammad", $person->last_name);
     }
 }

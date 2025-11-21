@@ -29,4 +29,18 @@ class Person extends Model
             }
         );
     }
+
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value, $attributes): string {
+                return strtoupper($value);
+            },
+            set: function ($value): array {
+                return [
+                    "first_name" => strtoupper($value)
+                ];
+            }
+        );
+    }
 }

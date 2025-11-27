@@ -19,6 +19,10 @@ class Product extends Model
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $hidden = [
+        "category_id"
+    ]; // untuk menyembunyikan attribute ketika data dikirim jadi Api/serialization
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, "category_id", "id");

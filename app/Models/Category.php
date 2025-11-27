@@ -23,6 +23,10 @@ class Category extends Model
         "description"
     ];
 
+    protected $casts = [
+        "created_at" => "datetime:U" //ini mengatur format date dengan U
+    ];
+
     protected static function booted()
     {
         parent::booted();
